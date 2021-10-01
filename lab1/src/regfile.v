@@ -26,14 +26,18 @@ module regfile(
     input [15:0] busW,
     input clk,
     input rst,
-    output [15:0] busA,
-    output [15:0] busB
+    output reg [15:0] busA,
+    output reg [15:0] busB
     );
 	 
 	 reg [15:0] registers [31:0];
 	 
 	 always@ (posedge clk) begin
-		
+		if (WrEn) begin
+			registers[Rw] = busW;
+		end
+		busA = registers[Ra];
+		busB = registers[Rb];
 	 end
 	 
 	 // resetting on falling edge
@@ -45,6 +49,5 @@ module regfile(
 			end
 		end
 	 end
-
 
 endmodule
