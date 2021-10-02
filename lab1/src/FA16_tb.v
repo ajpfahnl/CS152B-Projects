@@ -52,6 +52,7 @@ module FA16_tb;
 		// Wait 100 ns for global reset to finish
 		#50;
 		
+		// Case 1
 		for(i=-100; i < 100; i=i+1) begin
 			A = A + 20;
 			
@@ -60,10 +61,18 @@ module FA16_tb;
 			#10;
 			end
 		end
-				
-				
-        
-		// Add stimulus here
+		
+		// Case 2: -1 + 1
+		#50;
+		A = 16'b1111_1111_1111_1111;
+		B = 16'b1;
+		
+		// Case 3: overflow addition
+		#50;
+		A = 16'b0111_1111_1111_1111;
+		B = 16'b1;
+		
+		#50 $finish;
 
 	end
       

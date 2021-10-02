@@ -44,6 +44,8 @@ module FA16(A,B,Cin,Cout,S);
 	
 	wire c0,c1,c2,c3,c4,c5,c6,c7,c8;
 	wire c9,c10,c11,c12,c13,c14;
+	wire ABxnor, ASxor;
+	wire dummy;
 	
 	
 	FAdd fa0(A[0],B[0],Cin,S[0],c0);
@@ -61,6 +63,10 @@ module FA16(A,B,Cin,Cout,S);
 	FAdd fa12(A[12],B[12],c11,S[12],c12);
 	FAdd fa13(A[13],B[13],c12,S[13],c13);
 	FAdd fa14(A[14],B[14],c13,S[14],c14);
-	FAdd fa15(A[15],B[15],c14,S[15],Cout);
+	FAdd fa15(A[15],B[15],c14,S[15],dummy);
+	
+	xnor(ABxnor, A[15], B[15]);
+	xor(ASxor, A[15], S[15]);
+	xnor(Cout, ABxnor, ASxor);
 	
 endmodule

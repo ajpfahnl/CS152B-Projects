@@ -49,7 +49,6 @@ module FA(
 	output Sum,
 	output Cout
 	);
-	wire Sum, Cout;
 	wire x,y,z,v;
 	
 	xor(x,A,B);
