@@ -1,6 +1,6 @@
 # CS152B Projects
 
-# Setting up git remote with SSH
+## Setting up git remote with SSH
 Adapted from [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
  1. run `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"` and just press enter until the keys are created.
  2. run `eval "$(ssh-agent -s)"`
