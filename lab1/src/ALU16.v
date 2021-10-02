@@ -50,7 +50,7 @@ module ALU16(
     input [3:0] ALUCtrl,
     output Overflow,
     output Zero,
-    output [15:0] S,
+    output [15:0] S
     );
 	 
 	 wire [15:0] AND, OR, ADD, SUB, ANOT, BNOT;
