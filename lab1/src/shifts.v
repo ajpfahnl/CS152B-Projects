@@ -18,9 +18,10 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module left_logic_shift(A, Y);
+module left_logic_shift(A, Y, OF);
 input [15:0] A;
 output wire [15:0] Y;
+output OF;
 assign Y[0] = 0;
 assign Y[1] = A[0];
 assign Y[2] = A[1];
@@ -37,11 +38,13 @@ assign Y[12] = A[11];
 assign Y[13] = A[12];
 assign Y[14] = A[13];
 assign Y[15] = A[14];
+xor(OF, A[15], Y[15]);
 endmodule
 		
-module right_logic_shift(A, Y);
+module right_logic_shift(A, Y, OF);
 input [15:0] A;
 output wire [15:0] Y;
+output OF;
 assign Y[0] = A[1];
 assign Y[1] = A[2];
 assign Y[2] = A[3];
@@ -58,11 +61,13 @@ assign Y[12] = A[13];
 assign Y[13] = A[14];
 assign Y[14] = A[15];
 assign Y[15] = 0;
+xor(OF, A[15], Y[15]);
 endmodule
 
-module left_arith_shift(A, Y);
+module left_arith_shift(A, Y, OF);
 input [15:0] A;
 output wire [15:0] Y;
+output OF:
 assign Y[0] = 0;
 assign Y[1] = A[0];
 assign Y[2] = A[1];
@@ -79,11 +84,13 @@ assign Y[12] = A[11];
 assign Y[13] = A[12];
 assign Y[14] = A[13];
 assign Y[15] = A[14];
+xor(OF, A[15], Y[15]);
 endmodule
 
-module right_arith_shift(A, Y);
+module right_arith_shift(A, Y, OF);
 input [15:0] A;
 output wire [15:0] Y;
+output OF;
 assign Y[0] = A[1];
 assign Y[1] = A[2];
 assign Y[2] = A[3];
@@ -100,4 +107,5 @@ assign Y[12] = A[13];
 assign Y[13] = A[14];
 assign Y[14] = A[15];
 assign Y[15] = A[15];
+xor(OF, A[15], Y[15]);
 endmodule

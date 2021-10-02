@@ -29,11 +29,13 @@ module rls_tb;
 
 	// Outputs
 	wire [15:0] Y;
+	wire OF;
 
 	// Instantiate the Unit Under Test (UUT)
 	right_logic_shift uut (
 		.A(A), 
-		.Y(Y)
+		.Y(Y), 
+		.OF(OF)
 	);
 
 	initial begin
