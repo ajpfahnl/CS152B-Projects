@@ -72,6 +72,11 @@ module FA16_tb;
 		A = 16'b0111_1111_1111_1111;
 		B = 16'b1;
 		
+		// Case 4: overflow subtraction
+		#50;
+		A = 16'b1111_1111_1111_1111;
+		B = 16'b1000_0000_0000_0000;
+		
 		#50 $finish;
 
 	end
