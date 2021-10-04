@@ -24,13 +24,23 @@ module ALU16(
     input [3:0] ALUCtrl,
     output Overflow,
     output Zero,
-    output [15:0] S
+    output [15:0] S,
+	 output [15:0] AND, OR, ADD, SUB, ANOT, BNOT,
+	 output [15:0] INC, DEC
     );
 	 
-	 reg [15:0] AND, OR, ADD, SUB;
+	 wire CoutAdd, CoutSub,CoutInc, CoutDec;
 	 
-	 and(AND,A,B);
-	 or(OR,A,B);
+	 
+	 bitwise_and and16(A,B,AND);
+	 bitwise_or or16(A,B,OR);
+	 invert anot16(A,ANOT);
+	 invert bnot16(B,BNOT);
+	 FA16 add16(A,B,0,CoutAdd,ADD);
+	 FA16 sub16(A,BNOT,1,CoutSub,SUB);
+	 FA16 inc16(A,16'd1,0,CoutInc, INC);
+	 FA16 dec(A, -16'd1,0, CoutDec, DEC);
 	 
 
 endmodule
+
