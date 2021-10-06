@@ -29,11 +29,13 @@ module las_tb;
 
 	// Outputs
 	wire [15:0] Y;
+	wire OF;
 
 	// Instantiate the Unit Under Test (UUT)
 	left_arith_shift uut (
 		.A(A), 
-		.Y(Y)
+		.Y(Y),
+		.OF(OF)
 	);
 
 	initial begin
