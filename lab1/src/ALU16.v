@@ -26,10 +26,12 @@ module ALU16(
     output Zero,
     output [15:0] S,
 	 output [15:0] AND, OR, ADD, SUB, ANOT, BNOT,
-	 output [15:0] INC, DEC
+	 output [15:0] INC, DEC,
+    output SLT
     );
 	 
 	 wire CoutAdd, CoutSub,CoutInc, CoutDec;
+	 
 	 
 	 
 	 bitwise_and and16(A,B,AND);
@@ -40,6 +42,8 @@ module ALU16(
 	 FA16 sub16(A,BNOT,1,CoutSub,SUB);
 	 FA16 inc16(A,16'd1,0,CoutInc, INC);
 	 FA16 dec(A, -16'd1,0, CoutDec, DEC);
+	 slte slte16(A,B,SLT);
+	 
 	 
 
 endmodule
