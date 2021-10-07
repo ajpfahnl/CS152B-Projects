@@ -18,6 +18,32 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+module CalcZero (
+  S,
+  Zero
+);
+  input [15:0] S;
+  output Zero;
+  
+  wire [15:0] temp;
+  or(temp[0], S[0], S[1]);
+  or(temp[1], temp[0], S[2]);
+  or(temp[2], temp[1], S[3]);
+  or(temp[3], temp[2], S[4]);
+  or(temp[4], temp[3], S[5]);
+  or(temp[5], temp[4], S[6]);
+  or(temp[6], temp[5], S[7]);
+  or(temp[7], temp[6], S[8]);
+  or(temp[8], temp[7], S[9]);
+  or(temp[9], temp[8], S[10]);
+  or(temp[10], temp[9], S[11]);
+  or(temp[11], temp[10], S[12]);
+  or(temp[12], temp[11], S[13]);
+  or(temp[13], temp[12], S[14]);
+  or(temp[14], temp[13], S[15]);
+  not(Zero, temp[14]);
+endmodule
+
 module ALU16(
     input [15:0] A,
     input [15:0] B,
@@ -25,12 +51,12 @@ module ALU16(
     output Overflow,
     output Zero,
     output [15:0] S,
-	 output [15:0] AND, OR, ADD, SUB, ANOT, BNOT,
-	 output [15:0] INC, DEC,
-    output SLT
+	output [15:0] AND, OR, ADD, SUB, ANOT, BNOT,
+	output [15:0] INC, DEC, LLS, RLS, LAS, RAS, 
+	output SLT
     );
 	 
-	 wire CoutAdd, CoutSub,CoutInc, CoutDec;
+	 wire CoutAdd, CoutSub,CoutInc, CoutDec, LLS_OF, RLS_OF, LAS_OF, RAS_OF;
 	 
 	 
 	 
@@ -42,9 +68,22 @@ module ALU16(
 	 FA16 sub16(A,BNOT,1,CoutSub,SUB);
 	 FA16 inc16(A,16'd1,0,CoutInc, INC);
 	 FA16 dec(A, -16'd1,0, CoutDec, DEC);
+	
+	 left_logic_shift lls(A, LLS, LLS_OF);
+  	 right_logic_shift rls(A, RLS, OF);
+  	 left_arith_shift las(A, LAS, LAS_OF);
+  	 right_arith_shift ras(A, RAS, RAS_OF);
+	
 	 slte slte16(A,B,SLT);
-	 
-	 
+	
+	 // mux all the operations
+	 mux121(S, SUB, ADD, OR, AND, DEC, INC, ANOT, LAS, RAS, LLS, RLS, SLT, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]);
+	
+	// mux overflow outputs, hardcode zeros for operations with no overflow
+  	mux121(Overflow, CoutSub, CoutAdd, 0, 0, CoutDec, CoutInc, 0, LLS_OF, RLS_OF, LAS_OF, RAS_OF, 0, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]); 
+	
+	// calculates zero
+  	CalcZero(S, Zero); 
 
 endmodule
 
