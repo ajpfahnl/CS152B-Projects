@@ -77,10 +77,10 @@ module ALU16(
 	 slte slte16(A,B,SLT);
 	
 	 // mux all the operations
-	 mux121(S, SUB, ADD, OR, AND, DEC, INC, ANOT, LAS, RAS, LLS, RLS, SLT, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]);
+	 m121 m1(S, SUB, ADD, OR, AND, DEC, INC, ANOT, LAS, RAS, LLS, RLS, SLT, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]);
 	
 	// mux overflow outputs, hardcode zeros for operations with no overflow
-  	mux121(Overflow, CoutSub, CoutAdd, 0, 0, CoutDec, CoutInc, 0, LLS_OF, RLS_OF, LAS_OF, RAS_OF, 0, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]); 
+  	m121 m2(Overflow, CoutSub, CoutAdd, 0, 0, CoutDec, CoutInc, 0, LLS_OF, RLS_OF, LAS_OF, RAS_OF, 0, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]); 
 	
 	// calculates zero
   	CalcZero(S, Zero); 
