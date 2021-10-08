@@ -67,7 +67,7 @@ endmodule
 module left_arith_shift(A, Y, OF);
 input [15:0] A;
 output wire [15:0] Y;
-output OF:
+output OF;
 assign Y[0] = 0;
 assign Y[1] = A[0];
 assign Y[2] = A[1];

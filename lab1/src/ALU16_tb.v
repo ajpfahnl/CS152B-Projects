@@ -78,7 +78,7 @@ module ALU16_tb;
 			end
 		end
         
-		// Add stimulus here
+		#50 $finish;
 
 	end
       

@@ -70,6 +70,7 @@ module ALU16(
 	 FA16 dec(A, -16'd1,0, CoutDec, DEC);
 	
 	 left_logic_shift lls(A, LLS, LLS_OF);
+	 right_logic_shift rls(A, RLS, RLS_OF);
   	 left_arith_shift las(A, LAS, LAS_OF);
   	 right_arith_shift ras(A, RAS, RAS_OF);
 	
@@ -82,7 +83,7 @@ module ALU16(
   	m121 m2(Overflow, CoutSub, CoutAdd, 0, 0, CoutDec, CoutInc, 0, LLS_OF, RLS_OF, LAS_OF, RAS_OF, 0, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]); 
 	
 	// calculates zero
-  	CalcZero(S, Zero); 
+  	CalcZero c0(S, Zero); 
 
 endmodule
 
