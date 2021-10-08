@@ -64,18 +64,19 @@ module m41(Y, D0, D1, D2, D3, S0, S1);
   
 endmodule
 
-module m121(Y, D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, S0, S1, S2, S3);
+module m121(Y, D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D14, D15, S0, S1, S2, S3);
   
   output [15:0] Y;
   input [15:0] D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11;
   input S0, S1, S2, S3;
-  wire [15:0] T1, T2, T3;
+  wire [15:0] T1, T2, T3, T4;
   
   m41 m2a(T1, D0, D1, D2, D3, S0, S1);
   m41 m2b(T2, D4, D5, D6, D7, S0, S1);
   m41 m2c(T3, D8, D9, D10, D11, S0, S1);
+  m41 m2d(T4, D12, D13, D14, D15, S0, S1);
   
   // if selector is larger than 11, Y = 0
-  m41 m3e(Y, T1, T2, T3, 0, S2, S3);
+  m41 m3e(Y, T1, T2, T3, T4, S2, S3);
   
 endmodule
