@@ -28,7 +28,7 @@ module addbit(a,b,ci,sum,co);
 	wire x,y,z,v;
 	
 	xor(x,a,b);
-	xor(Sum,x,ci);
+	xor(sum,x,ci);
 	and(y,a,b);
 	and(z,b,ci);
 	and(v,a,ci);
