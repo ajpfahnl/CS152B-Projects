@@ -70,7 +70,7 @@ module ALU16(
 	 FA16 dec(A, -16'd1,0, CoutDec, DEC);
 	
 	 left_logic_shift lls(A, LLS, LLS_OF);
-  	 right_logic_shift rls(A, RLS, OF);
+	right_logic_shift rls(A, RLS, RLS_OF);
   	 left_arith_shift las(A, LAS, LAS_OF);
   	 right_arith_shift ras(A, RAS, RAS_OF);
 	
