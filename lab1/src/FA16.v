@@ -67,6 +67,6 @@ module FA16(A,B,Cin,Cout,S);
 	
 	xnor(ABxnor, A[15], B[15]);
 	xor(ASxor, A[15], S[15]);
-	xnor(Cout, ABxnor, ASxor);
+	and(Cout, ABxnor, ASxor);
 	
 endmodule
