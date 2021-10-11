@@ -54,8 +54,7 @@ module ALU16(
     );
 	 
 	 wire [15:0] AND, OR, ADD, SUB, ANOT, BNOT;
-	 wire [15:0] INC, DEC, LLS, RLS, LAS, RAS;
- 	 wire SLT;
+	 wire [15:0] INC, DEC, LLS, RLS, LAS, RAS, SLT;
 	 wire CoutAdd, CoutSub,CoutInc, CoutDec, LLS_OF, RLS_OF, LAS_OF, RAS_OF;
 	 
 	 
