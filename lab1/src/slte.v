@@ -21,15 +21,17 @@
 module slte(
     input [15:0] A,
     input [15:0] B,
-    output Result
+    output [15:0] Result
     );
 	 
-	 wire Cout, xnorREs;
+	 assign Result[15:1] = 0;
+	 
+	 wire Cout, xnorRes;
 	 wire[15:0] sum, BNOT; 
 	 
 	 invert notB(B,BNOT);
 	 FA16 sub(A,BNOT,16'd1,Cout,sum);
 	 xnor(xnorRes,sum);
-	 or(Result,sum[15],xnorRes);
+	 or(Result[0],sum[15],xnorRes);
 
 endmodule
