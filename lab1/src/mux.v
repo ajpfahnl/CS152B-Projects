@@ -67,7 +67,7 @@ endmodule
 module m121(Y, D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D14, D15, S0, S1, S2, S3);
   
   output [15:0] Y;
-  input [15:0] D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11;
+  input [15:0] D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D14, D15;
   input S0, S1, S2, S3;
   wire [15:0] T1, T2, T3, T4;
   
