@@ -57,10 +57,12 @@ module shifts_invert_tb;
 		ALUCtrl = 4'b0110;
 		A = -16'd32768;
 		repeat(8) #10 A = A + 16'd8192; 
+		A = 16'd32767;
+		#10;
 		
 		ALUCtrl = 0;
 		A = 0;
-		#100;
+		#10;
 		
 		//Left Arithmetic Shift
 		ALUCtrl = 4'b1100;
@@ -74,7 +76,7 @@ module shifts_invert_tb;
 		ALUCtrl = 0;
 		A = 0;
 		B = 0;
-		#100;
+		#10;
 		
 		//Right Arithmetic Shift 
 		ALUCtrl = 4'b1110;
@@ -88,7 +90,7 @@ module shifts_invert_tb;
 		ALUCtrl = 0;
 		A = 0;
 		B = 0;
-		#100;
+		#10;
 		
 		//Logical Shift Left
 		ALUCtrl = 4'b1000;
@@ -102,7 +104,7 @@ module shifts_invert_tb;
 		ALUCtrl = 0;
 		A = 0;
 		B = 0;
-		#100;
+		#10;
 		
 		//Logical Shift Right
 		ALUCtrl = 4'b1010;
@@ -113,10 +115,7 @@ module shifts_invert_tb;
 		B = 1'd3;
 		repeat(6) #10 B = B + 16'd3;
 		
-		ALUCtrl = 0;
-		A = 0;
-		B = 0;
-		#100 $finish;
+		$finish;
 
 	end
       
