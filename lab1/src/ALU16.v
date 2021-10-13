@@ -63,7 +63,6 @@ module ALU16(
 	 bitwise_or or16(A,B,OR);
 	 invert anot16(A,ANOT);
 	 invert bnot16(B,BNOT);
-	 //invert inv16(A, AINV);
 	 FA16 add16(A,B,0,CoutAdd,ADD);
 	 FA16 sub16(A,BNOT,1,CoutSub,SUB);
 	 FA16 inc16(A,16'd1,0,CoutInc, INC);
