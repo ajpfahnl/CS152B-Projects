@@ -132,7 +132,7 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="57"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="57"/>
     </file>
-    <file xil_pn:name="shifts_invert_tb.v" xil_pn:type="FILE_VERILOG">
+    <file xil_pn:name="src/shifts_invert_tb.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="7"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="25"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="25"/>
