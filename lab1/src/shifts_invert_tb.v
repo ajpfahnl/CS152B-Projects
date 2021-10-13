@@ -64,14 +64,11 @@ module shifts_invert_tb;
 		
 		//Left Arithmetic Shift
 		ALUCtrl = 4'b1100;
-		A = -16'd32768;
-		repeat(8) begin
-			B = 16'd1;
-			repeat(6) #10 B = B + 16'd3;
-			A = A + 16'd8192;
-		end
-		A = 16'd32767;
-		B = 16'd1;
+		A = 16'b1010101010101010;
+		B = 1'd3;
+		repeat(6) #10 B = B + 16'd3;
+		A = 16'b0000111100001111;
+		B = 1'd3;
 		repeat(6) #10 B = B + 16'd3;
 		
 		ALUCtrl = 0;
@@ -81,14 +78,11 @@ module shifts_invert_tb;
 		
 		//Right Arithmetic Shift 
 		ALUCtrl = 4'b1110;
-		A = -16'd32768;
-		repeat(8) begin
-			B = 16'd1;
-			repeat(6) #10 B = B + 16'd3;
-			A = A + 16'd8192;
-		end
-		A = 16'd32767;
-		B = 16'd1;
+		A = 16'b1010101010101010;
+		B = 1'd3;
+		repeat(6) #10 B = B + 16'd3;
+		A = 16'b0000111100001111;
+		B = 1'd3;
 		repeat(6) #10 B = B + 16'd3;
 		
 		ALUCtrl = 0;
@@ -98,14 +92,11 @@ module shifts_invert_tb;
 		
 		//Logical Shift Left
 		ALUCtrl = 4'b1000;
-		A = -16'd32768;
-		repeat(8) begin
-			B = 16'd1;
-			repeat(6) #10 B = B + 16'd3;
-			A = A + 16'd8192;
-		end
-		A = 16'd32767;
-		B = 16'd1;
+		A = 16'b1010101010101010;
+		B = 1'd3;
+		repeat(6) #10 B = B + 16'd3;
+		A = 16'b0000111100001111;
+		B = 1'd3;
 		repeat(6) #10 B = B + 16'd3;
 		
 		ALUCtrl = 0;
@@ -115,14 +106,11 @@ module shifts_invert_tb;
 		
 		//Logical Shift Right
 		ALUCtrl = 4'b1010;
-		A = -16'd32768;
-		repeat(8) begin
-			B = 16'd1;
-			repeat(6) #10 B = B + 16'd3;
-			A = A + 16'd8192;
-		end
-		A = 16'd32767;
-		B = 16'd1;
+		A = 16'b1010101010101010;
+		B = 1'd3;
+		repeat(6) #10 B = B + 16'd3;
+		A = 16'b0000111100001111;
+		B = 1'd3;
 		repeat(6) #10 B = B + 16'd3;
 		
 		ALUCtrl = 0;
