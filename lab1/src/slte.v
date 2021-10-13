@@ -26,12 +26,16 @@ module slte(
 	 
 	 assign Result[15:1] = 0;
 	 
-	 wire Cout, xnorRes;
+	 wire Cout, xnorRes, orSum, andOF, xorSum;
 	 wire[15:0] sum, BNOT; 
 	 
 	 invert notB(B,BNOT);
 	 FA16 sub(A,BNOT,16'd1,Cout,sum);
+	 
 	 xnor(xnorRes,sum);
-	 or(Result[0],sum[15],xnorRes);
+	 or(orSum,sum[15],xnorRes);
+	 xor(xorSum,orSum,Cout);
+	 and(andOF,Cout,A[15]);
+	 or(Result[0],andOF,xorSum);
 
 endmodule
