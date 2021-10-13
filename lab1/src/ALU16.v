@@ -69,10 +69,15 @@ module ALU16(
 	 FA16 dec(A, -16'd1,0, CoutDec, DEC);
 	 FA16 inv16(ANOT, 1, 0, CoutInv, AINV);
 	
-	 left_logic_shift lls(A, LLS, LLS_OF);
+	 /*left_logic_shift lls(A, LLS, LLS_OF);
 	 right_logic_shift rls(A, RLS, RLS_OF);
   	 left_arith_shift las(A, LAS, LAS_OF);
-  	 right_arith_shift ras(A, RAS, RAS_OF);
+  	 right_arith_shift ras(A, RAS, RAS_OF);*/
+	 
+	 left_shift lls(A, B, LLS, LLS_OF);
+	 left_shift las(A, B, LAS, LAS_OF);
+	 right_logic_shift rls(A, B, RLS, RLS_OF);
+	 right_arith_shift ras(A, B, RAS, RAS_OF);
 	
 	 slte slte16(A,B,SLT);
 	
