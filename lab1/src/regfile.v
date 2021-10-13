@@ -47,6 +47,8 @@ module regfile(
 			for(i=0; i<16; i=i+5'b1) begin
 				registers[i] = 0;
 			end
+			busA = registers[Ra];
+			busB = registers[Rb];
 		end
 	 end
 
