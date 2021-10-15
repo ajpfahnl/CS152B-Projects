@@ -22,8 +22,8 @@ module traffic_light(
     input Sensor,
     input walkButton,
     output walkLight,
-    input [1:0] mainLight,
-    input [1:0] sideLight
+    output [1:0] mainLight,
+    output [1:0] sideLight
     );
 
 
