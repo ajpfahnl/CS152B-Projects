@@ -64,7 +64,16 @@ module traffic_light_tb;
 		// Add stimulus here
 		#10 rst=0;
 		
-		#400 $finish;
+		#400 rst=1;
+		
+		#20 rst=0;
+		walkButton = 1;
+		Sensor = 1;
+		#70 walkButton = 0;
+		#40;
+		#80;
+		
+		$finish;
 	end
 	
 	always #5 clk = ~clk;

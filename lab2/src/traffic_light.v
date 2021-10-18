@@ -21,23 +21,24 @@
 module traffic_light(
     input Sensor,
     input walkButton,
-    output walkLight,
+    output reg walkLight,
     output reg [1:0] mainLight,
     output reg [1:0] sideLight,
-	 output [4:0] state,
-	 output [4:0] next_state,
-	 output [3:0] seconds_passed,
+	 output reg [4:0] state,
+	 output reg [4:0] next_state,
+	 output reg [3:0] seconds_passed,
 	 input clk,
 	 input rst
     );
 	 
 	 reg walk;
-	 reg [4:0] state;
-	 reg [4:0] next_state;
+	 // reg [4:0] state;
+	 // reg [4:0] next_state;
 	 
 	 parameter G1=5'd0, G2=5'd1, G3=5'd2, YR=5'd3, R1=5'd4, RG1=5'd5, RG2=5'd6, RY=5'd7;
-	 reg [3:0] seconds_passed;
+	 // reg [3:0] seconds_passed;
 	 reg [1:0] G=2'b11, R=2'b0, Y=2'b01;
+	 reg ON=1'b1, OFF=1'b0;
 	 
 	 always@ (state or seconds_passed) begin
 		case(state)
@@ -61,7 +62,7 @@ module traffic_light(
 					next_state <= G3;
 				end
 				end
-			YR: begin if ((seconds_passed == 4'd6) && (walk)) begin
+			YR: begin if ((seconds_passed == 4'd2) && (walk)) begin
 					next_state <= R1;
 				end else if (seconds_passed == 4'd2) begin
 					next_state <= RG1;
@@ -101,7 +102,7 @@ module traffic_light(
 	 end
 	 
 	 always@ (posedge clk) begin
-	 $display("%d", next_state);
+	 //$display("%d", next_state);
 		if (rst == 1'b1) begin
 			state <= G1;
 			seconds_passed <= 1;
@@ -114,48 +115,61 @@ module traffic_light(
 			seconds_passed <= 1;
 		end
 		if (walkButton) begin
+			$display("store walk, state %d", state);
 			walk <= 1;
 		end
-		if (next_state == RG1) begin
+		if (state == RG1) begin
+			$display("reset walk, %d", state);
 			walk <= 0;
 		end
 	 end
 
-	 always@ (posedge clk) begin
+	 always@ (state) begin
 		case(state)
 			G1: begin
 				mainLight <= G;
 				sideLight <= R;
+				walkLight <= OFF;
 				end
 			G2: begin
 				mainLight <= G;
 				sideLight <= R;
+				walkLight <= OFF;
 				end
 			G3: begin
 				mainLight <= G;
 				sideLight <= R;
+				walkLight <= OFF;
 				end
 			YR: begin
 				mainLight <= Y;
 				sideLight <= R;
+				walkLight <= OFF;
 				end
 			R1: begin
 				mainLight <= R;
 				sideLight <= R;
+				walkLight <= ON;
 				end
 			RG1: begin
 				mainLight <= R;
 				sideLight <= G;
+				walkLight <= OFF;
 				end
 			RG2: begin
 				mainLight <= R;
 				sideLight <= G;
+				walkLight <= OFF;
 				end
 			RY: begin
 				mainLight <= R;
 				sideLight <= Y;
+				walkLight <= OFF;
 				end
 			default: begin
+				mainLight <= R;
+				sideLight <= R;
+				walkLight <= OFF;
 				end
 		endcase
 	 end
