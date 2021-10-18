@@ -65,9 +65,11 @@ module ALU16(
 	 FA16 sub16(A,BNOT,1,CoutSub,SUB);
 	 FA16 inc16(A,16'd1,0,CoutInc, INC);
 	 FA16 dec(A, -16'd1,0, CoutDec, DEC);
+	 
 	 FA16 inv16(ANOT, 1, 0, CoutInv, AINV);
-	 xor(INV_OF, A[15], AINV[15]);
-	
+	 
+	 and(INV_OF, A[15], AINV[15]);
+	 
 	 /*left_logic_shift lls(A, LLS, LLS_OF);
 	 right_logic_shift rls(A, RLS, RLS_OF);
   	 left_arith_shift las(A, LAS, LAS_OF);
@@ -84,7 +86,7 @@ module ALU16(
 	m121 m1(S, SUB, ADD, OR, AND, DEC, INC, AINV, 0, LLS, SLT, RLS, 0, LAS, 0, RAS, 0, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]);
 	
 	// mux overflow outputs, hardcode zeros for operations with no overflow
-	m121 m2(Overflow, CoutSub, CoutAdd, 0, 0, CoutDec, CoutInc, INV_OF, 0, LLS_OF, 0, RLS_OF, 0, LAS_OF, 0, RAS_OF, 0, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]); 
+	m121 m2(Overflow, CoutSub, CoutAdd, 0, 0, CoutDec, CoutInc, INV_OF, 0, 0, 0, 0, 0, LAS_OF, 0, RAS_OF, 0, ALUCtrl[0], ALUCtrl[1], ALUCtrl[2], ALUCtrl[3]); 
 	
 	// calculates zero
   	CalcZero c0(S, Zero); 

@@ -4,7 +4,7 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   17:46:40 10/15/2021
+// Create Date:   17:53:10 10/15/2021
 // Design Name:   traffic_light
 // Module Name:   /home/ise/Desktop/CS152B/lab2/src/traffic_light_tb.v
 // Project Name:  lab2
@@ -27,11 +27,11 @@ module traffic_light_tb;
 	// Inputs
 	reg Sensor;
 	reg walkButton;
-	reg [1:0] mainLight;
-	reg [1:0] sideLight;
 
 	// Outputs
 	wire walkLight;
+	wire [1:0] mainLight;
+	wire [1:0] sideLight;
 
 	// Instantiate the Unit Under Test (UUT)
 	traffic_light uut (
@@ -46,8 +46,6 @@ module traffic_light_tb;
 		// Initialize Inputs
 		Sensor = 0;
 		walkButton = 0;
-		mainLight = 0;
-		sideLight = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
