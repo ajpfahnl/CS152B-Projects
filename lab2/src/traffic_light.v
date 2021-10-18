@@ -29,6 +29,7 @@ module traffic_light(
 	 input rst
     );
 	 
+	 reg walk;
 	 reg [4:0] state;
 	 reg [4:0] next_state;
 	 
@@ -46,19 +47,52 @@ module traffic_light(
 					next_state <= G1;
 				end
 				end
-			G2: begin
+			G2: begin if ((seconds_passed == 4'd6) begin
+					next_state <= YR;
+				end else begin
+					next_state <= G2;
 				end
-			G3: begin
 				end
-			YR: begin
+			G3: begin if ((seconds_passed == 4'd3) begin
+					next_state <= YR;
+				end else begin
+					next_state <= G3;
 				end
-			R1: begin
 				end
-			RG1: begin
+			YR: begin if ((seconds_passed == 4'd6) && (walk)) begin
+					next_state <= R1;
+				end else if ((seconds_passed == 4'd2) begin
+					next_state <= RG1;
+				end else begin
+					next_state <= YR;
 				end
-			RG2: begin
 				end
-			RY: begin
+			R1: begin if ((seconds_passed == 4'd3) begin
+					next_state <= RG1;
+				end else begin
+					next_state <= R1;
+				end
+				
+				end
+			RG1: begin if ((seconds_passed == 4'd6) && (Sensor)) begin
+					next_state <= RG2;
+				end else if (seconds_passed == 4'd6) begin
+					next_state <= RY;
+				end else begin
+					next_state <= RG1;
+				end
+				end
+			RG2: begin if (seconds_passed == 4'd3) begin
+					next_state <= RY;
+				end else begin
+					next_state <= RG2;
+				end
+				end
+			RY: begin if (seconds_passed == 4'd2) begin
+					next_state <= G1;
+				end else begin
+					next_state <= RY;
+				end
 				end
 			default: next_state <= G1;
 		endcase
@@ -68,11 +102,18 @@ module traffic_light(
 		if (rst == 1'b1) begin
 			state <= G1;
 			seconds_passed <= 0;
+			walk <= 0;
 		end else if (state == next_state) begin
 			seconds_passed <= seconds_passed + 1;
 		end else begin
 			state <= next_state;
 			seconds_passed <= 0;
+		end
+		if (walkButton) begin
+			walk <= 1;
+		end
+		if (next_state == RG1) begin
+			walk <= 0;
 		end
 	 end
 
@@ -87,16 +128,28 @@ module traffic_light(
 				sideLight <= R;
 				end
 			G3: begin
+				mainLight <= G;
+				sideLight <= R;
 				end
 			YR: begin
+				mainLight <= Y;
+				sideLight <= R;
 				end
 			R1: begin
+				mainLight <= R;
+				sideLight <= R
 				end
 			RG1: begin
+				mainLight <= R;
+				sideLight <= G;
 				end
 			RG2: begin
+				mainLight <= R;
+				sideLight <= G;
 				end
 			RY: begin
+				mainLight <= R;
+				sideLight <= Y;
 				end
 			default: begin
 				end
