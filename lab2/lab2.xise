@@ -19,6 +19,15 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="1"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="1"/>
     </file>
+    <file xil_pn:name="src/traffic_light_tb.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="2"/>
+      <association xil_pn:name="PostMapSimulation" xil_pn:seqID="2"/>
+      <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="2"/>
+      <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="2"/>
+    </file>
+    <file xil_pn:name="board/GenesysGeneral.ucf" xil_pn:type="FILE_UCF">
+      <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
+    </file>
   </files>
 
   <properties>
