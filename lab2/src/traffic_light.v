@@ -23,8 +23,11 @@ module traffic_light(
     input walkButton,
     output walkLight,
     output [1:0] mainLight,
-    output [1:0] sideLight
+    output [1:0] sideLight,
+	 input clk,
+	 input rst
     );
-
+	 
+	 
 
 endmodule
