@@ -47,6 +47,8 @@ module traffic_light_tb;
 
 	initial begin
 		// Initialize Inputs
+		clk = 0;
+		rst = 1;
 		Sensor = 0;
 		walkButton = 0;
 
@@ -54,8 +56,12 @@ module traffic_light_tb;
 		#100;
         
 		// Add stimulus here
-
+		#10 rst=0;
+		
+		#20 $finish;
 	end
+	
+	always #5 clk = ~clk;
       
 endmodule
 
