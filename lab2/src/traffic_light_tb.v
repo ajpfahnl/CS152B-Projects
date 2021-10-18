@@ -27,6 +27,7 @@ module traffic_light_tb;
 	// Inputs
 	reg Sensor;
 	reg walkButton;
+	reg clk, rst;
 
 	// Outputs
 	wire walkLight;
@@ -39,7 +40,9 @@ module traffic_light_tb;
 		.walkButton(walkButton), 
 		.walkLight(walkLight), 
 		.mainLight(mainLight), 
-		.sideLight(sideLight)
+		.sideLight(sideLight),
+		.clk(clk),
+		.rst(rst)
 	);
 
 	initial begin
