@@ -24,19 +24,16 @@ module traffic_light(
     output reg walkLight,
     output reg [1:0] mainLight,
     output reg [1:0] sideLight,
-	 output reg [4:0] state,
-	 output reg [4:0] next_state,
-	 output reg [3:0] seconds_passed,
 	 input clk,
 	 input rst
     );
 	 
 	 reg walk;
-	 // reg [4:0] state;
-	 // reg [4:0] next_state;
+	 reg [4:0] state;
+	 reg [4:0] next_state;
 	 
 	 parameter G1=5'd0, G2=5'd1, G3=5'd2, YR=5'd3, R1=5'd4, RG1=5'd5, RG2=5'd6, RY=5'd7;
-	 // reg [3:0] seconds_passed;
+	 reg [3:0] seconds_passed;
 	 reg [1:0] G=2'b11, R=2'b0, Y=2'b01;
 	 reg ON=1'b1, OFF=1'b0;
 	 
@@ -102,7 +99,6 @@ module traffic_light(
 	 end
 	 
 	 always@ (posedge clk) begin
-	 //$display("%d", next_state);
 		if (rst == 1'b1) begin
 			state <= G1;
 			seconds_passed <= 1;
@@ -115,11 +111,9 @@ module traffic_light(
 			seconds_passed <= 1;
 		end
 		if (walkButton) begin
-			$display("store walk, state %d", state);
 			walk <= 1;
 		end
 		if (state == RG1) begin
-			$display("reset walk, %d", state);
 			walk <= 0;
 		end
 	 end
