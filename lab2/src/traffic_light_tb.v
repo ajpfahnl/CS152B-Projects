@@ -33,6 +33,9 @@ module traffic_light_tb;
 	wire walkLight;
 	wire [1:0] mainLight;
 	wire [1:0] sideLight;
+	wire [4:0] state;
+	wire [4:0] next_state;
+	wire [3:0] seconds_passed;
 
 	// Instantiate the Unit Under Test (UUT)
 	traffic_light uut (
@@ -41,6 +44,9 @@ module traffic_light_tb;
 		.walkLight(walkLight), 
 		.mainLight(mainLight), 
 		.sideLight(sideLight),
+		.state(state),
+		.next_state(next_state),
+		.seconds_passed(seconds_passed),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -58,7 +64,7 @@ module traffic_light_tb;
 		// Add stimulus here
 		#10 rst=0;
 		
-		#20 $finish;
+		#400 $finish;
 	end
 	
 	always #5 clk = ~clk;

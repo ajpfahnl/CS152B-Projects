@@ -19,12 +19,14 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module traffic_light(
-	 input clk,
     input Sensor,
     input walkButton,
     output walkLight,
     output reg [1:0] mainLight,
     output reg [1:0] sideLight,
+	 output [4:0] state,
+	 output [4:0] next_state,
+	 output [3:0] seconds_passed,
 	 input clk,
 	 input rst
     );
@@ -37,7 +39,7 @@ module traffic_light(
 	 reg [3:0] seconds_passed;
 	 reg [1:0] G=2'b11, R=2'b0, Y=2'b01;
 	 
-	 always@ (state) begin
+	 always@ (state or seconds_passed) begin
 		case(state)
 			G1: begin if ((seconds_passed == 4'd6) && (Sensor)) begin
 					next_state <= G3;
@@ -47,13 +49,13 @@ module traffic_light(
 					next_state <= G1;
 				end
 				end
-			G2: begin if ((seconds_passed == 4'd6) begin
+			G2: begin if (seconds_passed == 4'd6) begin
 					next_state <= YR;
 				end else begin
 					next_state <= G2;
 				end
 				end
-			G3: begin if ((seconds_passed == 4'd3) begin
+			G3: begin if (seconds_passed == 4'd3) begin
 					next_state <= YR;
 				end else begin
 					next_state <= G3;
@@ -61,13 +63,13 @@ module traffic_light(
 				end
 			YR: begin if ((seconds_passed == 4'd6) && (walk)) begin
 					next_state <= R1;
-				end else if ((seconds_passed == 4'd2) begin
+				end else if (seconds_passed == 4'd2) begin
 					next_state <= RG1;
 				end else begin
 					next_state <= YR;
 				end
 				end
-			R1: begin if ((seconds_passed == 4'd3) begin
+			R1: begin if (seconds_passed == 4'd3) begin
 					next_state <= RG1;
 				end else begin
 					next_state <= R1;
@@ -99,15 +101,17 @@ module traffic_light(
 	 end
 	 
 	 always@ (posedge clk) begin
+	 $display("%d", next_state);
 		if (rst == 1'b1) begin
 			state <= G1;
-			seconds_passed <= 0;
+			seconds_passed <= 1;
 			walk <= 0;
 		end else if (state == next_state) begin
-			seconds_passed <= seconds_passed + 1;
+			seconds_passed <= seconds_passed + 4'd1;
+			state <= next_state;
 		end else begin
 			state <= next_state;
-			seconds_passed <= 0;
+			seconds_passed <= 1;
 		end
 		if (walkButton) begin
 			walk <= 1;
@@ -137,7 +141,7 @@ module traffic_light(
 				end
 			R1: begin
 				mainLight <= R;
-				sideLight <= R
+				sideLight <= R;
 				end
 			RG1: begin
 				mainLight <= R;
