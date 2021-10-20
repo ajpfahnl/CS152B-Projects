@@ -37,6 +37,7 @@ module traffic_light_tb;
 	wire sideLightR;
 	wire sideLightY;
 	wire sideLightG;
+	wire slow_clk;
 
 	// Instantiate the Unit Under Test (UUT)
 	traffic_light uut (
@@ -50,7 +51,8 @@ module traffic_light_tb;
 		.sideLightY(sideLightY),
 		.sideLightG(sideLightG),
 		.clk(clk),
-		.rst(rst)
+		.rst(rst), 
+		.slow_clk(slow_clk)
 	);
 
 	initial begin
@@ -78,6 +80,7 @@ module traffic_light_tb;
 		$finish;
 	end
 	
+	//T = 5 ns -> f = 200 MHz for testbench clk
 	always #5 clk = ~clk;
       
 endmodule

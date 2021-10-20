@@ -19,7 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module traffic_light(
-    input Sensor,
+    
+	 input Sensor,
     input walkButton,
     output reg walkLight,
     output reg mainLightR,
@@ -29,12 +30,13 @@ module traffic_light(
     output reg sideLightY,
 	 output reg sideLightG,
 	 input clk,
-	 input rst
+	 input rst,
+	 output reg slow_clk
     );
 	 
-	 reg [30:0] ctr = 0;
-	 parameter dv = 30'd500_000_000;
-	 reg clk_1hz;
+	 reg [25:0] ctr;
+	 parameter dv = 26'd5;						//200 MHz -> 20 MHz	
+	 //parameter dv = 26'd50_000_000;		//100 MHz -> 1 Hz
 	 
 	 reg walk;
 	 reg [4:0] state;
@@ -106,7 +108,7 @@ module traffic_light(
 		endcase
 	 end
 	 
-	 always@ (posedge clk_1hz) begin
+	 always@ (posedge slow_clk) begin
 		if (rst == 1'b1) begin
 			state <= G1;
 			seconds_passed <= 1;
@@ -211,15 +213,23 @@ module traffic_light(
 				end
 		endcase
 	 end
-	 
-always @(posedge clk) begin
-	ctr = ctr + 1;
-	if(ctr == dv) 
-		ctr = 0;
-	if(ctr < dv/2) 
-		clk_1hz = 1;
-	else 
-		clk_1hz = 0;
+	
+	//clock divider
+	always @(posedge clk) begin 
+		if (rst)
+			ctr = 0;
+		else if (ctr == dv - 1)
+			ctr = 0;
+		else 
+			ctr = ctr + 1;
 	end
-
+	always @(posedge clk) begin
+		if (rst)
+			slow_clk = 0;
+		else if (ctr == dv - 1)
+			slow_clk = ~slow_clk;
+		else 
+			slow_clk = slow_clk;
+	end
+			
 endmodule
