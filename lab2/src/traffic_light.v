@@ -21,6 +21,7 @@
 module traffic_light(
     input Sensor,
     input walkButton,
+    output reg walkLight,
     output mainLightR;
     output mainLightY;
     output mainLightG;
@@ -130,6 +131,7 @@ module traffic_light(
 				sideLightR <= 1;
 				sideLightY <= 1;
 				sideLightG <= 1;
+				walkLight <= OFF;
 				end
 			G2: begin
 				mainLightG <= 1;
@@ -138,6 +140,7 @@ module traffic_light(
 				sideLightR <= 1;
 				sideLightY <= 0;
 				sideLightG <= 0;
+				walkLight <= OFF;
 				end
 			G3: begin
 				mainLightG <= 1;
@@ -146,6 +149,7 @@ module traffic_light(
 				sideLightR <= 1;
 				sideLightY <= 0;
 				sideLightG <= 0;
+				walkLight <= OFF;
 				end
 			YR: begin
 				mainLightY <= 1;
@@ -154,6 +158,7 @@ module traffic_light(
 				sideLightR <= 1;
 				sideLightY <= 0;
 				sideLightG <= 0;
+				walkLight <= OFF;
 				end
 			R1: begin
 				mainLightR <= 1;
@@ -162,6 +167,7 @@ module traffic_light(
 				sideLightR <= 1;
 				sideLightY <= 0;
 				sideLightG <= 0;
+				walkLight <= ON;
 				end
 			RG1: begin
 				mainLightR <= 1;
@@ -170,6 +176,7 @@ module traffic_light(
 				sideLightG <= 1;
 				sideLightY <= 0;
 				sideLightR <= 0;
+				walkLight <= OFF;
 				end
 			RG2: begin
 				mainLightR <= 1;
@@ -178,6 +185,7 @@ module traffic_light(
 				sideLightG <= 1;
 				sideLightY <= 0;
 				sideLightR <= 0;
+				walkLight <= OFF;
 				end
 			RY: begin
 				mainLightR <= 1;
@@ -186,6 +194,7 @@ module traffic_light(
 				sideLightY <= 1;
 				sideLightG <= 0;
 				sideLightR <= 0;
+				walkLight <= OFF;
 				end
 			default: begin
 				mainLightR <= 1;
@@ -194,6 +203,7 @@ module traffic_light(
 				sideLightR <= 1;
 				sideLightY <= 0;
 				sideLightG <= 0;
+				walkLight <= OFF;
 				end
 		endcase
 	 end
