@@ -32,6 +32,10 @@ module traffic_light(
 	 input rst
     );
 	 
+	 reg [30:0] ctr = 0;
+	 parameter dv = 30'd500_000_000;
+	 reg clk_1hz;
+	 
 	 reg walk;
 	 reg [4:0] state;
 	 reg [4:0] next_state;
@@ -102,7 +106,7 @@ module traffic_light(
 		endcase
 	 end
 	 
-	 always@ (posedge clk) begin
+	 always@ (posedge clk_1hz) begin
 		if (rst == 1'b1) begin
 			state <= G1;
 			seconds_passed <= 1;
@@ -207,5 +211,15 @@ module traffic_light(
 				end
 		endcase
 	 end
+	 
+always @(posedge clk) begin
+	ctr = ctr + 1;
+	if(ctr == dv) 
+		ctr = 0;
+	if(ctr < dv/2) 
+		clk_1hz = 1;
+	else 
+		clk_1hz = 0;
+	end
 
 endmodule
