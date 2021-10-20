@@ -21,9 +21,12 @@
 module traffic_light(
     input Sensor,
     input walkButton,
-    output reg walkLight,
-    output reg [1:0] mainLight,
-    output reg [1:0] sideLight,
+    output mainLightR;
+    output mainLightY;
+    output mainLightG;
+    output sideLightR;
+    output sideLightY;
+    output sideLightG;
 	 input clk,
 	 input rst
     );
@@ -121,49 +124,76 @@ module traffic_light(
 	 always@ (state) begin
 		case(state)
 			G1: begin
-				mainLight <= G;
-				sideLight <= R;
-				walkLight <= OFF;
+				mainLightG <= 1;
+				mainLightY <= 0;
+				mainLightR <= 0;
+				sideLightR <= 1;
+				sideLightY <= 1;
+				sideLightG <= 1;
 				end
 			G2: begin
-				mainLight <= G;
-				sideLight <= R;
-				walkLight <= OFF;
+				mainLightG <= 1;
+				mainLightY <= 0;
+				mainLightR <= 0;
+				sideLightR <= 1;
+				sideLightY <= 0;
+				sideLightG <= 0;
 				end
 			G3: begin
-				mainLight <= G;
-				sideLight <= R;
-				walkLight <= OFF;
+				mainLightG <= 1;
+				mainLightY <= 0;
+				mainLightR <= 0;
+				sideLightR <= 1;
+				sideLightY <= 0;
+				sideLightG <= 0;
 				end
 			YR: begin
-				mainLight <= Y;
-				sideLight <= R;
-				walkLight <= OFF;
+				mainLightY <= 1;
+				mainLightG <= 0;
+				mainLightR <= 0;
+				sideLightR <= 1;
+				sideLightY <= 0;
+				sideLightG <= 0;
 				end
 			R1: begin
-				mainLight <= R;
-				sideLight <= R;
-				walkLight <= ON;
+				mainLightR <= 1;
+				mainLightY <= 0;
+				mainLightG <= 0;
+				sideLightR <= 1;
+				sideLightY <= 0;
+				sideLightG <= 0;
 				end
 			RG1: begin
-				mainLight <= R;
-				sideLight <= G;
-				walkLight <= OFF;
+				mainLightR <= 1;
+				mainLightY <= 0;
+				mainLightG <= 0;
+				sideLightG <= 1;
+				sideLightY <= 0;
+				sideLightR <= 0;
 				end
 			RG2: begin
-				mainLight <= R;
-				sideLight <= G;
-				walkLight <= OFF;
+				mainLightR <= 1;
+				mainLightY <= 0;
+				mainLightG <= 0;
+				sideLightG <= 1;
+				sideLightY <= 0;
+				sideLightR <= 0;
 				end
 			RY: begin
-				mainLight <= R;
-				sideLight <= Y;
-				walkLight <= OFF;
+				mainLightR <= 1;
+				mainLightY <= 0;
+				mainLightG <= 0;
+				sideLightY <= 1;
+				sideLightG <= 0;
+				sideLightR <= 0;
 				end
 			default: begin
-				mainLight <= R;
-				sideLight <= R;
-				walkLight <= OFF;
+				mainLightR <= 1;
+				mainLightY <= 0;
+				mainLightG <= 0;
+				sideLightR <= 1;
+				sideLightY <= 0;
+				sideLightG <= 0;
 				end
 		endcase
 	 end
