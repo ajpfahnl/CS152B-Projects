@@ -31,16 +31,24 @@ module traffic_light_tb;
 
 	// Outputs
 	wire walkLight;
-	wire [1:0] mainLight;
-	wire [1:0] sideLight;
+	wire mainLightR;
+	wire mainLightY;
+	wire mainLightG;
+	wire sideLightR;
+	wire sideLightY;
+	wire sideLightG;
 
 	// Instantiate the Unit Under Test (UUT)
 	traffic_light uut (
 		.Sensor(Sensor), 
 		.walkButton(walkButton), 
 		.walkLight(walkLight), 
-		.mainLight(mainLight), 
-		.sideLight(sideLight),
+		.mainLightR(mainLightR),
+		.mainLightY(mainLightY), 
+		.mainLightG(mainLightG), 
+		.sideLightR(sideLightR),
+		.sideLightY(sideLightY),
+		.sideLightG(sideLightG),
 		.clk(clk),
 		.rst(rst)
 	);

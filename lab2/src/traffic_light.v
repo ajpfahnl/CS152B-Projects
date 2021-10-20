@@ -22,12 +22,12 @@ module traffic_light(
     input Sensor,
     input walkButton,
     output reg walkLight,
-    output mainLightR;
-    output mainLightY;
-    output mainLightG;
-    output sideLightR;
-    output sideLightY;
-    output sideLightG;
+    output reg mainLightR,
+    output reg mainLightY,
+    output reg mainLightG,
+    output reg sideLightR,
+    output reg sideLightY,
+	 output reg sideLightG,
 	 input clk,
 	 input rst
     );
