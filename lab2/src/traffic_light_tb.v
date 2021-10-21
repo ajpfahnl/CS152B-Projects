@@ -80,7 +80,7 @@ module traffic_light_tb;
 		$finish;
 	end
 	
-	//T = 5 ns -> f = 200 MHz for testbench clk
+	//100 MHz
 	always #5 clk = ~clk;
       
 endmodule

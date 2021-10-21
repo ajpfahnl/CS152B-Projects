@@ -35,8 +35,8 @@ module traffic_light(
     );
 	 
 	 reg [25:0] ctr;
-	 parameter dv = 26'd5;						//200 MHz -> 20 MHz	
-	 //parameter dv = 26'd50_000_000;		//100 MHz -> 1 Hz
+	 parameter dv = 26'd5;						//100 MHz (10 ns) -> 10 MHz (100 ns)
+	 //parameter dv = 26'd50_000_000;		//100 MHz (10 ns) -> 1 Hz (1 s)
 	 
 	 reg walk;
 	 reg [4:0] state;
@@ -215,21 +215,17 @@ module traffic_light(
 	 end
 	
 	//clock divider
-	always @(posedge clk) begin 
-		if (rst)
-			ctr = 0;
-		else if (ctr == dv - 1)
-			ctr = 0;
-		else 
-			ctr = ctr + 1;
-	end
-	always @(posedge clk) begin
-		if (rst)
-			slow_clk = 0;
-		else if (ctr == dv - 1)
-			slow_clk = ~slow_clk;
-		else 
-			slow_clk = slow_clk;
+	always @(posedge clk, posedge rst) begin
+		if (rst) begin
+			ctr <= 0;
+			slow_clk <= 0;
+		end else if (ctr == dv - 1) begin
+			ctr <= 0;
+			slow_clk <= ~slow_clk;
+		end else begin
+			ctr <= ctr + 1;
+			slow_clk <= slow_clk;
+		end
 	end
 			
 endmodule
