@@ -1,0 +1,14 @@
+
+# PlanAhead Generated physical constraints 
+
+NET "clk" LOC = AG18;
+NET "mainLightG" LOC = AE11;
+NET "mainLightR" LOC = AG11;
+NET "mainLightY" LOC = AF11;
+NET "sideLightG" LOC = AH10;
+NET "sideLightR" LOC = AH9;
+NET "sideLightY" LOC = AG10;
+NET "slow_clk" LOC = AG8;
+NET "walkButton" LOC = G6;
+NET "Sensor" LOC = J19;
+NET "rst" LOC = G15;

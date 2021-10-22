@@ -35,7 +35,7 @@ module traffic_light(
     );
 	 
 	 reg [25:0] ctr;
-	 parameter dv = 26'd5;						//100 MHz (10 ns) -> 10 MHz (100 ns)
+	 parameter dv = 26'd5;				//100 MHz (10 ns) -> 10 MHz (100 ns)
 	 //parameter dv = 26'd50_000_000;		//100 MHz (10 ns) -> 1 Hz (1 s)
 	 
 	 reg walk;
@@ -44,8 +44,8 @@ module traffic_light(
 	 
 	 parameter G1=5'd0, G2=5'd1, G3=5'd2, YR=5'd3, R1=5'd4, RG1=5'd5, RG2=5'd6, RY=5'd7;
 	 reg [3:0] seconds_passed;
-	 reg [1:0] G=2'b11, R=2'b0, Y=2'b01;
-	 reg ON=1'b1, OFF=1'b0;
+	 parameter G=2'b11, R=2'b0, Y=2'b01;
+	 parameter ON=1'b1, OFF=1'b0;
 	 
 	 always@ (state or seconds_passed) begin
 		case(state)
@@ -112,7 +112,6 @@ module traffic_light(
 		if (rst == 1'b1) begin
 			state <= G1;
 			seconds_passed <= 1;
-			walk <= 0;
 		end else if (state == next_state) begin
 			seconds_passed <= seconds_passed + 4'd1;
 			state <= next_state;
@@ -120,10 +119,15 @@ module traffic_light(
 			state <= next_state;
 			seconds_passed <= 1;
 		end
+	end
+	
+	always@ (posedge clk) begin
+		if (rst == 1'b1)
+			walk <= 0;
 		if (walkButton) begin
 			walk <= 1;
 		end
-		if (state == RG1) begin
+		if (state == R1) begin
 			walk <= 0;
 		end
 	 end
@@ -135,8 +139,8 @@ module traffic_light(
 				mainLightY <= 0;
 				mainLightR <= 0;
 				sideLightR <= 1;
-				sideLightY <= 1;
-				sideLightG <= 1;
+				sideLightY <= 0;
+				sideLightG <= 0;
 				walkLight <= OFF;
 				end
 			G2: begin
