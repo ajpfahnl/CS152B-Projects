@@ -108,7 +108,7 @@ module traffic_light(
 		endcase
 	 end
 	 
-	 always@ (posedge slow_clk) begin
+	 always@ (posedge slow_clk, posedge rst) begin
 		if (rst == 1'b1) begin
 			state <= G1;
 			seconds_passed <= 1;
