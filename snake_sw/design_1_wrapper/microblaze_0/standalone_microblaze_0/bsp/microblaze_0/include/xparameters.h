@@ -491,6 +491,19 @@
 
 /******************************************************************/
 
+/* Definitions for driver PMODJSTK */
+#define XPAR_PMODJSTK_NUM_INSTANCES 1
+
+/* Definitions for peripheral PMODJSTK_0 */
+#define XPAR_PMODJSTK_0_DEVICE_ID 0
+#define XPAR_PMODJSTK_0_AXI_LITE_SPI_BASEADDR 0x44A10000
+#define XPAR_PMODJSTK_0_AXI_LITE_SPI_HIGHADDR 0x44A1FFFF
+#define XPAR_PMODJSTK_0_AXI_LITE_GPIO_BASEADDR 0x44A00000
+#define XPAR_PMODJSTK_0_AXI_LITE_GPIO_HIGHADDR 0x44A0FFFF
+
+
+/******************************************************************/
+
 /* Definitions for driver BRAM */
 #define XPAR_XBRAM_NUM_INSTANCES 2U
 
@@ -569,6 +582,29 @@
 #define XPAR_BRAM_1_CTRL_HIGHADDR 0xFFFFFFFEU  
 #define XPAR_ILMB_CNTLR_BASEADDR 0x00000000
 #define XPAR_ILMB_CNTLR_HIGHADDR 0x00007FFF
+
+
+/******************************************************************/
+
+/* Definitions for driver GPIO */
+#define XPAR_XGPIO_NUM_INSTANCES 1
+
+/* Definitions for peripheral AXI_GPIO_SSD */
+#define XPAR_AXI_GPIO_SSD_BASEADDR 0x40010000
+#define XPAR_AXI_GPIO_SSD_HIGHADDR 0x4001FFFF
+#define XPAR_AXI_GPIO_SSD_DEVICE_ID 0
+#define XPAR_AXI_GPIO_SSD_INTERRUPT_PRESENT 1
+#define XPAR_AXI_GPIO_SSD_IS_DUAL 1
+
+
+/******************************************************************/
+
+/* Canonical definitions for peripheral AXI_GPIO_SSD */
+#define XPAR_GPIO_0_BASEADDR 0x40010000
+#define XPAR_GPIO_0_HIGHADDR 0x4001FFFF
+#define XPAR_GPIO_0_DEVICE_ID XPAR_AXI_GPIO_SSD_DEVICE_ID
+#define XPAR_GPIO_0_INTERRUPT_PRESENT 1
+#define XPAR_GPIO_0_IS_DUAL 1
 
 
 /******************************************************************/

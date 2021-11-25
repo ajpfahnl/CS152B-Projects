@@ -1,81 +1,41 @@
-/******************************************************************************
-*
-* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-******************************************************************************/
-
-/*
- * helloworld.c: simple test application
- *
- * This application configures UART 16550 to baud rate 9600.
- * PS7 UART (Zynq) is not initialized by this application, since
- * bootrom/bsp configures it to baud rate 115200
- *
- * ------------------------------------------------
- * | UART TYPE   BAUD RATE                        |
- * ------------------------------------------------
- *   uartns550   9600
- *   uartlite    Configurable only in HW design
- *   ps7_uart    115200 (configured by bootrom/bsp)
- */
-
 #include <stdio.h>
-#include "platform.h"
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xil_cache.h"
 #include "PmodBT2.h"
+#include "PmodJSTK.h"
+#include "sleep.h"
 
 #include "xuartlite.h"
 typedef XUartLite SysUart;
+
+#define DEBUG 1
+
 #define SysUart_Send            XUartLite_Send
 #define SysUart_Recv            XUartLite_Recv
 #define SYS_UART_DEVICE_ID      XPAR_AXI_UARTLITE_0_DEVICE_ID
 #define BT2_UART_AXI_CLOCK_FREQ XPAR_CPU_M_AXI_DP_FREQ_HZ
 
+#define CPU_CLOCK_FREQ_HZ 		XPAR_CPU_CORE_CLOCK_FREQ_HZ
+
 PmodBT2 myDevice;
 SysUart myUart;
+PmodJSTK joystick;
 
-void DemoInitialize();
-void DemoRun();
+void Initialize();
+void Run();
 void SysUartInit();
 void EnableCaches();
 void DisableCaches();
 
 int main() {
-   DemoInitialize();
-   DemoRun();
+   Initialize();
+   Run();
    DisableCaches();
    return XST_SUCCESS;
 }
 
-void DemoInitialize() {
+void Initialize() {
    EnableCaches();
    SysUartInit();
    BT2_Begin (
@@ -85,31 +45,93 @@ void DemoInitialize() {
       BT2_UART_AXI_CLOCK_FREQ,
       115200
    );
+
+   JSTK_begin(
+      &joystick,
+	  XPAR_PMODJSTK_0_AXI_LITE_SPI_BASEADDR,
+      XPAR_PMODJSTK_0_AXI_LITE_GPIO_BASEADDR
+   );
 }
 
-void DemoRun() {
-   u8 buf[1];
-   int n;
+void Run() {
+	JSTK_DataPacket rawdata;
+	u8 led;
 
-   print("Initialized PmodBT2 Demo\n\r");
-   print("Received data will be echoed here, type to send data\r\n");
+	u8 buf[1];
+	int n;
 
-   while (1) {
-      // Echo all characters received from both BT2 and terminal to terminal
-      // Forward all characters received from terminal to BT2
-      n = SysUart_Recv(&myUart, buf, 1);
-      if (n != 0) {
-         SysUart_Send(&myUart, buf, 1);
-         BT2_SendData(&myDevice, buf, 1);
-         print("[data sent]\n\r");
-      }
+	print("Initialized PmodBT2 Demo\n\r");
+	print("Received data will be echoed here, type to send data\r\n");
 
-      n = BT2_RecvData(&myDevice, buf, 1);
-      if (n != 0) {
-         SysUart_Send(&myUart, buf, 1);
-         print("[data received]\n\r");
-      }
-   }
+	char * directions_debug[] = {"left", "right", "down", "up", "C", "Q"};
+	char * directions = "adswcq";
+	int directions_i = 4;
+	int directions_i_prev = 4;
+
+	while (1) {
+		/* JOYSTICK */
+		// Capture button states and positional data
+		rawdata = JSTK_getDataPacket(&joystick);
+
+		if (rawdata.YData < 200) {
+			directions_i = 0;
+		} else if (rawdata.YData > 850) {
+			directions_i = 1;
+		} else if (rawdata.XData > 750) {
+			directions_i = 2;
+		} else if (rawdata.XData < 250) {
+			directions_i = 3;
+		}
+
+		if (DEBUG) {
+			xil_printf(
+				"X:%d\tY:%d\t%s%s%s%s\r\n",
+				rawdata.XData,
+				rawdata.YData,
+				directions_debug[directions_i],
+				(rawdata.Jstk != 0) ? "\tJoystick pressed" : "",
+				(rawdata.Button1 != 0) ? "\tButton 1 pressed" : "",
+				(rawdata.Button2 != 0) ? "\tButton 2 pressed" : ""
+			);
+		}
+
+		// Wait for 50ms
+		usleep(50000);
+		// usleep(500000);
+
+		// Map LEDs to adjacent buttons
+		led = 0x0;
+		if (rawdata.Button1 != 0) {
+			led |= 0x1;
+			directions_i = 4;
+		}
+		if (rawdata.Button2 != 0) {
+			led |= 0x2;
+			directions_i = 5;
+		}
+		JSTK_setLeds(&joystick, led);
+
+
+		/* BLUETOOTH */
+		// Echo all characters received from both BT2 and terminal to terminal
+		// Forward all characters received from terminal to BT2
+		if (directions_i != directions_i_prev) {
+			BT2_SendData(&myDevice, (u8*)&directions[directions_i], 1);
+		}
+
+		n = SysUart_Recv(&myUart, buf, 1);
+		if (n != 0) {
+			SysUart_Send(&myUart, buf, 1);
+			BT2_SendData(&myDevice, buf, 1);
+		}
+
+		n = BT2_RecvData(&myDevice, buf, 1);
+		if (n != 0) {
+			SysUart_Send(&myUart, buf, 1);
+		}
+
+		directions_i_prev = directions_i;
+	}
 }
 
 // Initialize the system UART device

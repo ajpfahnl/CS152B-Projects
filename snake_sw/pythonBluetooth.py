@@ -4,7 +4,7 @@ import random
 import serial
 
 
-s = serial.Serial('COM4',timeout=0)
+s = serial.Serial('COM3',timeout=0)
 
  
 pygame.init()

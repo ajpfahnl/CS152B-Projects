@@ -17,12 +17,18 @@ In this repo, I created a Vivado project under `snake_hw`.
     * Add the Microblaze IP, run connection automation, and configure with 32KB of local memory
     * Connect USB UART to `UART` of `AXI Uartlite` and run connection automation
  4. Under project manager settings, under _Project Settings -> IP -> Repository_, add the Digilent Vivado library (`D:\Xilinx\Libraries\vivado-library`) so that we can load Digilent's IPs. Also configure this under _Tool Settings -> IP Defaults_ to have the library available for all future projects automatically.
- 5. In the block diagram, select _Add IP_ and add `PmodBT2_v1_0` and run connection automation.
- 6. I'm connecting to the `JB` GPIO port, so connect the `JB Connector` to `Pmod_out` of the `PmodBT_0` component.
+ 5. Add Bluetooth IP:
+    * In the block diagram, select _Add IP_ and add `PmodBT2_v1_0` and run connection automation.
+    * I'm connecting to the `JB` GPIO port, so connect the `JB Connector` to `Pmod_out` of the `PmodBT_0` component.
+ 6. Add joystick IP:
+    * In the block diagram, double clock on `clk_wiz_0` and add a second clock with a frequency of 16 MHz.
+    * Add the `PmodJSTK_v1_0` IP and connect `ext_spi_clk` to the 16 MHz clock.
+    * Run connection automation.
+    * I'm connecting to the `JA` GPIO port, so connect the `JA connector` to `Pmod_out` of the `PmodJSTK_0` component.
  7. Validate design and ensure that validation is successful.
  8. Create an `HDL Wrapper` for block design.
- 9. Run synthesis. You can ignore the critical warnings about the PmodBT2 IP being packaged with a different board originally.
- 10. Open the synthesized design, select _Window -> I/O ports_ and under `jb_54576 -> Scalar ports (8)` (or equivalent) set `jb_pin7_0`'s package pin to `A15`, and the following to `A17`, `C15`, and `C16`. Set all I/O standards to `LVCMOS33`. Save and write to the board constraint file.
+ 9. Add a Basys3 constraint file and add in constraints. [Here is mine](snake_hw/snake_hw.srcs/constrs_1/imports/Downloads/Basys3_Master.xdc).
+ 10. Run synthesis. You can ignore the critical warnings about the PmodBT2 IP being packaged with a different board originally. You can the layout to I/O planning if you want to edit the constraints in a more interactive manner.
  11. Click _Generate Bitstream_.
  12. Select _File -> Export -> Export Hardware_, include the bitstream, and remember where the `.xsa` file is stored for use Vitus (the software development kit).
 
@@ -37,4 +43,4 @@ In this repo, I created a Vitus (essentially Eclipse) workspace under `snake_sw`
  7. Right click on the _snake_ application in the explorer and select _Run as -> 1 Launch Hardware_.
  8. Connect your host computer to the bluetooth device named `RSBT_XXXX`. Mine was named `RSBT_681C`. See the Nexys-3 Pmod BT2 [demo](https://digilent.com/reference/learn/programmable-logic/tutorials/nexsys-3-pmodbt2-demo/start), specifically how to connect to the module via Bluetooth to your computer if you run into issues.
  9. I'm using _Tera Term_ to interface with serial ports. Open two terminals connected to serial ports. The port dropdown should be automatically populated with at least two COM numbers, one for serial over bluetooth and one for USB serial.
- 10. Typing into the USB serial connection, you should see text echo in both the Bluetooth terminal and USB terminal. When typing text in the Bluetooth terminal, you should see text echo in the USB terminal.
+ 10. Typing into the USB serial connection, you should see text echo in both the Bluetooth terminal and USB terminal. When typing text in the Bluetooth terminal, you should see text echo in the USB terminal. Running [snake](snake_sw/pythonBluetooth.py) (with the appropriate COM port), you can control the game with the joystick.
