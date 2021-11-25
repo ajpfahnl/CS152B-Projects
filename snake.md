@@ -42,9 +42,9 @@ In this repo, I created a Vivado project under `snake_hw`.
 In this repo, I created a Vitus (essentially Eclipse) workspace under `snake_sw`.
  1. Open Vitus and create a new application project.
  2. Switch to _Create a new platform from hardware (XSA)_ and add the path to the `.xsa` file generated above. Name the project `snake` with the auto-generated system name `snake_system`.
- 3. I decided to open the example Hello World program (renaming the `helloworld.c` file to `main.c`), but an empty C project should do.
- 4. In the same level as the `src` folder, create a folder `bt2` and copy all the files in `D:\Xilinx\Libraries\vivado-library\ip\Pmods\PmodBT2_v1_0\drivers\PmodBT2_v1_0\src` to this folder. This is all the driver source code from Digilent for controlling the bluetooth Pmod. `PmodBT2.h` is the header file that will be included in the project and contains the API for interfacing with the driver.
- 5. To check if the bluetooth module works, copy the example code in `D:\Xilinx\Libraries\vivado-library\ip\Pmods\PmodBT2_v1_0\drivers\PmodBT2_v1_0\examples\main.c` to our [`main.c`](snake_sw/snake/src/main.c).
+ 3. Create an empty C project and create a `main.c` file.
+ 4. Drivers for the Pmods are automatically associated, so all you need to do is add `#include "PmodBT2.h"` and `#include "PmodJSTK.h"` to include the driver code.
+ 5. Check the APIs for the drivers and check out the example code in the Pmod folders in the Digilent Vivado repository to determine how to interface and create your program. Here is my [`main.c`](snake_sw/snake/src/main.c).
  6. Click _Xilinx -> Program Device_ to program the FPGA with the bitstream generated in the Vivado.
  7. Right click on the _snake_ application in the explorer and select _Run as -> 1 Launch Hardware_.
  8. Connect your host computer to the bluetooth device named `RSBT_XXXX`. Mine was named `RSBT_681C`. See the Nexys-3 Pmod BT2 [demo](https://digilent.com/reference/learn/programmable-logic/tutorials/nexsys-3-pmodbt2-demo/start), specifically how to connect to the module via Bluetooth to your computer if you run into issues.
