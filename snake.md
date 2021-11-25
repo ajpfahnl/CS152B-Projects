@@ -32,6 +32,8 @@ In this repo, I created a Vivado project under `snake_hw`.
  11. Click _Generate Bitstream_.
  12. Select _File -> Export -> Export Hardware_, include the bitstream, and remember where the `.xsa` file is stored for use Vitus (the software development kit).
 
+![snake_block_diagram](snake_hw/design_1.png)
+
 ## Creating the software
 In this repo, I created a Vitus (essentially Eclipse) workspace under `snake_sw`.
  1. Open Vitus and create a new application project.
