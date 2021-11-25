@@ -13,7 +13,7 @@ We will be using the __Pmod BT2__ and __Pmod JSTK__ modules. Check out the follo
 ## Creating the hardware
 In this repo, I created a Vivado project under `snake_hw`.
  1. Create a project and ensure that the __Basys3__ board is chosen as the default part.
- 2. Download the Basys3 master constraints file from [here](https://raw.githubusercontent.com/Digilent/Basys3/master/Projects/GPIO/src/constraints/Basys3_Master.xdc) and add it as a constraint file to the project (click _Add Sources_).
+ 2. Download the Basys3 master constraints file from [here](https://raw.githubusercontent.com/Digilent/digilent-xdc/master/Basys-3-Master.xdc) and add it as a constraint file to the project (click _Add Sources_).
  3. Create a block design and follow the steps [here](https://digilent.com/reference/programmable-logic/guides/getting-started-with-ipi) to add Microblaze to the design.
     * Connect system clock board component, and run connection automation
     * Add the Microblaze IP, run connection automation, and configure with 32KB of local memory
