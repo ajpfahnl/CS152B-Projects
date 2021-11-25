@@ -3,10 +3,12 @@
 ## Prerequisites
 Install Vivado with Vitus (version 2021.2) and download the [Digilent Vivado library](https://github.com/Digilent/vivado-library/). I've installed Vivado and Vitus on my external SSD to a directory called `D:\Xilinx`. I've cloned the Digilent Vivado library to `D:\Xilinx\Libraries\vivado-library`.
 
-We will be using the __Pmod BT2__ module. Check out the following resources:
- * Digilent Vivado library [IP, drivers, and example code](https://github.com/Digilent/vivado-library/tree/master/ip/Pmods/PmodBT2_v1_0)
+We will be using the __Pmod BT2__ and __Pmod JSTK__ modules. Check out the following resources:
+ * Digilent Vivado library [IP, drivers, and example code](https://github.com/Digilent/vivado-library/tree/master/ip/Pmods/PmodBT2_v1_0) for Pmod BT2
  * Pmod BT2 [reference manual](https://digilent.com/reference/pmod/pmodbt2/reference-manual)
  * Nexys-3 Pmod BT2 [demo](https://digilent.com/reference/learn/programmable-logic/tutorials/nexsys-3-pmodbt2-demo/start), specifically how to connect to the module via Bluetooth to your computer
+ * Digilent Vivado library [IP, drivers, and example code](https://github.com/Digilent/vivado-library/tree/master/ip/Pmods/PmodJSTK_v1_0) for Pmod JSTK
+ * Pmod JSTK [reference manual](https://digilent.com/reference/pmod/pmodjstk/reference-manual)
 
 ## Creating the hardware
 In this repo, I created a Vivado project under `snake_hw`.
