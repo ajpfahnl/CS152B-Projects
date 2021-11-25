@@ -10,6 +10,8 @@ We will be using the __Pmod BT2__ and __Pmod JSTK__ modules. Check out the follo
  * Digilent Vivado library [IP, drivers, and example code](https://github.com/Digilent/vivado-library/tree/master/ip/Pmods/PmodJSTK_v1_0) for Pmod JSTK
  * Pmod JSTK [reference manual](https://digilent.com/reference/pmod/pmodjstk/reference-manual)
 
+Also check out the Basys3 reference manual [here](https://digilent.com/reference/programmable-logic/basys-3/reference-manual).
+
 ## Creating the hardware
 In this repo, I created a Vivado project under `snake_hw`.
  1. Create a project and ensure that the __Basys3__ board is chosen as the default part.
@@ -29,7 +31,7 @@ In this repo, I created a Vivado project under `snake_hw`.
     * I'm connecting to the `JA` GPIO port, so connect the `JA connector` to `Pmod_out` of the `PmodJSTK_0` component.
  7. Validate design and ensure that validation is successful.
  8. Create an `HDL Wrapper` for block design.
- 9. Add a Basys3 constraint file and add in constraints. [Here is mine](snake_hw/snake_hw.srcs/constrs_1/imports/Downloads/Basys3_Master.xdc).
+ 9. Edit the Basys3 constraint file with new constraints. [Here is mine](snake_hw/snake_hw.srcs/constrs_1/imports/Downloads/Basys3_Master.xdc). I had to manually configure the bottom four pins for both `JA` and `JB`.
  10. Run synthesis. You can ignore the critical warnings about the PmodBT2 IP being packaged with a different board originally. You can the layout to I/O planning if you want to edit the constraints in a more interactive manner.
  11. Click _Generate Bitstream_.
  12. Select _File -> Export -> Export Hardware_, include the bitstream, and remember where the `.xsa` file is stored for use Vitus (the software development kit).
