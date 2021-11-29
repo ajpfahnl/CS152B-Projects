@@ -79,24 +79,24 @@ def gameLoop():
                     if event.key == pygame.K_c:
                         gameLoop()
 
-            # if(res == 'q'):
-            #     game_over = True
-            #     game_close = False
-            # elif(res == 'c'):
-            #     gameLoop()
+            if(res == 'q'):
+                game_over = True
+                game_close = False
+            elif(res == 'c'):
+                gameLoop()
 
-        # if(res == 'a'):
-        #     x1_change = -snake_block
-        #     y1_change = 0
-        # elif (res == 'd'):
-        #     x1_change = snake_block
-        #     y1_change = 0
-        # elif (res == 'w'):
-        #     y1_change = -snake_block
-        #     x1_change = 0
-        # elif (res == 's'):
-        #     y1_change = snake_block
-        #     x1_change = 0
+        if(res == 'a'):
+            x1_change = -snake_block
+            y1_change = 0
+        elif (res == 'd'):
+            x1_change = snake_block
+            y1_change = 0
+        elif (res == 'w'):
+            y1_change = -snake_block
+            x1_change = 0
+        elif (res == 's'):
+            y1_change = snake_block
+            x1_change = 0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
