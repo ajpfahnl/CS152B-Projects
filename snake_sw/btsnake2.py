@@ -3,10 +3,17 @@ import time
 import random
 import serial
 import os
+from pygame import mixer
 
 s = serial.Serial('/dev/tty.RNBT-61DE',timeout=0)
 
 pygame.init()
+mixer.init()
+
+sound_base_path = os.path.dirname(__file__)
+bite_path = os.path.join(sound_base_path, "appleBite.mp3")
+mixer.music.load(bite_path)
+mixer.music.set_volume(0.9)
  
 white = (255, 255, 255)
 yellow = (255, 255, 102)
@@ -146,6 +153,7 @@ def gameLoop():
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
+            mixer.music.play()
  
         clock.tick(snake_speed)
  
