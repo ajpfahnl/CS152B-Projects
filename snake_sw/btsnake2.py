@@ -2,8 +2,9 @@ import pygame
 import time
 import random
 import serial
+import os
 
-s = serial.Serial('COM4',timeout=0)
+s = serial.Serial('/dev/tty.RNBT-61DE',timeout=0)
 
 pygame.init()
  
@@ -20,12 +21,14 @@ dis_height = 600
  
 dis = pygame.display.set_mode((dis_width, total_height))
 pygame.display.set_caption('Snake')
-bg = pygame.image.load("/Users/puvali/Desktop/FALL 2021/CS 152B/grass.jpeg")
+base_path = os.path.dirname(__file__)
+grass_path = os.path.join(base_path, "grass.jpeg")
+bg = pygame.image.load(grass_path)
  
 clock = pygame.time.Clock()
  
 snake_block = 10
-snake_speed = 10
+snake_speed = 5
  
 font_style = pygame.font.SysFont("Arial", 25)
 score_font = pygame.font.SysFont("Arial", 35)
