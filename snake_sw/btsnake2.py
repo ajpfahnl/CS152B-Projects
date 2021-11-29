@@ -9,9 +9,10 @@ from pygame import mixer
 
 pygame.init()
 mixer.init()
-mixer.music.load('../appleBite.mp3')
-mixer.music.set_volume(0.7)
- 
+sound_base_path = os.path.dirname(__file__)
+bite_path = os.path.join(sound_base_path, "appleBite.mp3")
+mixer.music.load(bite_path)
+mixer.music.set_volume(0.9) 
 white = (255, 255, 255)
 yellow = (255, 255, 102)
 black = (0, 0, 0)
