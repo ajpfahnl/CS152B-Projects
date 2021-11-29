@@ -3,10 +3,14 @@ import time
 import random
 import serial
 import os
+from pygame import mixer
 
-s = serial.Serial('/dev/tty.RNBT-61DE',timeout=0)
+#s = serial.Serial('/dev/tty.RNBT-61DE',timeout=0)
 
 pygame.init()
+mixer.init()
+mixer.music.load('../appleBite.mp3')
+mixer.music.set_volume(0.7)
  
 white = (255, 255, 255)
 yellow = (255, 255, 102)
@@ -65,7 +69,8 @@ def gameLoop():
  
     while not game_over:
  
-        res = s.read().decode()
+        #res = s.read().decode()
+        res = ""
         while game_close == True:
             #dis.fill(blue)
             dis.fill(black)
@@ -81,7 +86,7 @@ def gameLoop():
                         game_close = False
                     if event.key == pygame.K_c:
                         gameLoop()
-
+            #res = s.read().decoode()
             if(res == 'q'):
                 game_over = True
                 game_close = False
@@ -125,7 +130,7 @@ def gameLoop():
         #dis.fill(blue)
         dis.fill(black)
         dis.blit(bg, (0, 40))
-        pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block])
+        pygame.draw.rect(dis, red, [foodx, foody, snake_block, snake_block])
         snake_Head = []
         snake_Head.append(x1)
         snake_Head.append(y1)
@@ -146,6 +151,7 @@ def gameLoop():
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
+            mixer.music.play()
  
         clock.tick(snake_speed)
  

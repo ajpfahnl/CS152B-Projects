@@ -6,7 +6,8 @@ from pygame import mixer
 
 
 
-s = serial.Serial('COM4',timeout=0)
+
+#s = serial.Serial('COM4',timeout=0)
 
  
 pygame.init()
@@ -71,8 +72,8 @@ def gameLoop():
  
     while not game_over:
  
-        res = s.read().decode()
-
+        #res = s.read().decode()
+        res = ""
         while game_close == True:
             dis.fill(blue)
             message("You Lost! Press C-Play Again or Q-Quit", red)
@@ -87,7 +88,7 @@ def gameLoop():
                     if event.key == pygame.K_c:
                         gameLoop()
             
-            res = s.read().decode()
+            #res = s.read().decode()
             if(res == 'q'):
                 game_over = True
                 game_close = False
