@@ -2,12 +2,17 @@ import pygame
 import time
 import random
 import serial
+from pygame import mixer
 
 
-s = serial.Serial('COM3',timeout=0)
+
+s = serial.Serial('COM4',timeout=0)
 
  
 pygame.init()
+mixer.init()
+mixer.music.load('../appleBite.mp3')
+mixer.music.set_volume(0.7)
  
 white = (255, 255, 255)
 yellow = (255, 255, 102)
@@ -15,6 +20,7 @@ black = (0, 0, 0)
 red = (213, 50, 80)
 green = (0, 255, 0)
 blue = (50, 153, 213)
+
  
 dis_width = 600
 dis_height = 400
@@ -66,6 +72,7 @@ def gameLoop():
     while not game_over:
  
         res = s.read().decode()
+
         while game_close == True:
             dis.fill(blue)
             message("You Lost! Press C-Play Again or Q-Quit", red)
@@ -79,7 +86,8 @@ def gameLoop():
                         game_close = False
                     if event.key == pygame.K_c:
                         gameLoop()
-
+            
+            res = s.read().decode()
             if(res == 'q'):
                 game_over = True
                 game_close = False
@@ -147,6 +155,8 @@ def gameLoop():
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
+            #playsound('C:/Users/Jacob/OneDrive - UCLA IT Services/Docs/4th Year/1st Quarter/CS 152B/CS152B-Projects/appleBite.mp3')
+            mixer.music.play()
  
         clock.tick(snake_speed)
  
