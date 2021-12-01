@@ -5,7 +5,7 @@ import serial
 import os
 from pygame import mixer
 
-#s = serial.Serial('/dev/tty.RNBT-61DE',timeout=0)
+s = serial.Serial('/dev/tty.RNBT-61DE',timeout=0)
 
 pygame.init()
 mixer.init()
@@ -89,7 +89,7 @@ def gameLoop():
  
     while not game_over:
         
-        #res = s.read().decode()
+        res = s.read().decode()
         res = ""
 
         while game_start == True:
@@ -216,6 +216,7 @@ def gameLoop():
             foody = round(random.randrange(40, dis_height - snake_block) / 15.0) * 15.0
             Length_of_snake += 1
             mixer.Sound.play(bite_sound)
+            s.write('u');
  
         clock.tick(snake_speed)
  
