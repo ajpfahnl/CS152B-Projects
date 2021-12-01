@@ -5,7 +5,7 @@ import serial
 import os
 from pygame import mixer
 
-s = serial.Serial('/dev/tty.RNBT-61DE',timeout=0)
+s = serial.Serial('COM4',timeout=0)
 
 pygame.init()
 mixer.init()
@@ -90,12 +90,12 @@ def gameLoop():
     while not game_over:
         
         res = s.read().decode()
-        res = ""
 
         while game_start == True:
             dis.fill(black)
-            message("s (SLOW), m (MEDIUM) OR f (FAST)?", white, black)
+            message("Left (SLOW), Down (MEDIUM) OR Right (FAST)?", white, black)
             pygame.display.update()
+
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s:
@@ -114,14 +114,15 @@ def gameLoop():
                     game_over = True
                     game_close = False
                     game_start = False
-            
-            if(res == 's'):
+
+            res = s.read().decode()
+            if(res == 'a'):
                 snake_speed = 4
                 game_start = False
-            elif(res == 'm'):
+            elif(res == 's'):
                 snake_speed = 7
                 game_start = False
-            elif(res == 'f'):
+            elif(res == 'd'):
                 snake_speed = 10
                 game_start = False
 
@@ -140,7 +141,7 @@ def gameLoop():
                         game_close = False
                     if event.key == pygame.K_c:
                         gameLoop()
-            #res = s.read().decode()
+            res = s.read().decode()
             if(res == 'q'):
                 game_over = True
                 game_close = False
@@ -216,7 +217,7 @@ def gameLoop():
             foody = round(random.randrange(40, dis_height - snake_block) / 15.0) * 15.0
             Length_of_snake += 1
             mixer.Sound.play(bite_sound)
-            s.write('u');
+            s.write('u'.encode());
  
         clock.tick(snake_speed)
  
