@@ -1,7 +1,7 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
-// Date        : Sun Nov 21 19:02:28 2021
+// Date        : Wed Nov 24 17:34:44 2021
 // Host        : DESKTOP-S00MR69 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim -rename_top design_1_dlmb_bram_if_cntlr_0 -prefix
 //               design_1_dlmb_bram_if_cntlr_0_ design_1_dlmb_bram_if_cntlr_0_sim_netlist.v
@@ -124,7 +124,7 @@ module design_1_dlmb_bram_if_cntlr_0
   (* C_LMB_AWIDTH = "32" *) 
   (* C_LMB_DWIDTH = "32" *) 
   (* C_LMB_PROTOCOL = "0" *) 
-  (* C_MASK = "64'b0000000000000000000000000000000000000000001000011000000000000000" *) 
+  (* C_MASK = "64'b0000000000000000000000000000000001000000000000011000000000000000" *) 
   (* C_MASK1 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) 
   (* C_MASK2 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) 
   (* C_MASK3 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) 
@@ -218,7 +218,7 @@ endmodule
 (* C_ECC_ONOFF_RESET_VALUE = "1" *) (* C_ECC_STATUS_REGISTERS = "0" *) (* C_FAMILY = "artix7" *) 
 (* C_FAULT_INJECT = "0" *) (* C_HIGHADDR = "64'b0000000000000000000000000000000000000000000000000111111111111111" *) (* C_INTERCONNECT = "0" *) 
 (* C_LMB_AWIDTH = "32" *) (* C_LMB_DWIDTH = "32" *) (* C_LMB_PROTOCOL = "0" *) 
-(* C_MASK = "64'b0000000000000000000000000000000000000000001000011000000000000000" *) (* C_MASK1 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) (* C_MASK2 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) 
+(* C_MASK = "64'b0000000000000000000000000000000001000000000000011000000000000000" *) (* C_MASK1 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) (* C_MASK2 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) 
 (* C_MASK3 = "64'b0000000000000000000000000000000000000000100000000000000000000000" *) (* C_NUM_LMB = "1" *) (* C_S_AXI_CTRL_ADDR_WIDTH = "32" *) 
 (* C_S_AXI_CTRL_BASEADDR = "32'b11111111111111111111111111111111" *) (* C_S_AXI_CTRL_DATA_WIDTH = "32" *) (* C_S_AXI_CTRL_HIGHADDR = "32'b00000000000000000000000000000000" *) 
 (* C_UE_FAILING_REGISTERS = "0" *) (* C_WRITE_ACCESS = "2" *) 
@@ -555,7 +555,7 @@ module design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr
     .INIT(32'h00020000)) 
     \BRAM_WEN_A[0]_INST_0 
        (.I0(LMB_WriteStrobe),
-        .I1(LMB_ABus[10]),
+        .I1(LMB_ABus[1]),
         .I2(LMB_ABus[15]),
         .I3(LMB_ABus[16]),
         .I4(LMB_BE[0]),
@@ -564,7 +564,7 @@ module design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr
     .INIT(32'h00020000)) 
     \BRAM_WEN_A[1]_INST_0 
        (.I0(LMB_WriteStrobe),
-        .I1(LMB_ABus[10]),
+        .I1(LMB_ABus[1]),
         .I2(LMB_ABus[15]),
         .I3(LMB_ABus[16]),
         .I4(LMB_BE[1]),
@@ -573,7 +573,7 @@ module design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr
     .INIT(32'h00020000)) 
     \BRAM_WEN_A[2]_INST_0 
        (.I0(LMB_WriteStrobe),
-        .I1(LMB_ABus[10]),
+        .I1(LMB_ABus[1]),
         .I2(LMB_ABus[15]),
         .I3(LMB_ABus[16]),
         .I4(LMB_BE[2]),
@@ -582,7 +582,7 @@ module design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr
     .INIT(32'h00020000)) 
     \BRAM_WEN_A[3]_INST_0 
        (.I0(LMB_WriteStrobe),
-        .I1(LMB_ABus[10]),
+        .I1(LMB_ABus[1]),
         .I2(LMB_ABus[15]),
         .I3(LMB_ABus[16]),
         .I4(LMB_BE[3]),
@@ -595,7 +595,7 @@ module design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr
     \No_ECC.Sl_Rdy_i_1 
        (.I0(LMB_ABus[16]),
         .I1(LMB_ABus[15]),
-        .I2(LMB_ABus[10]),
+        .I2(LMB_ABus[1]),
         .I3(LMB_Rst),
         .O(\No_ECC.Sl_Rdy_i_1_n_0 ));
   FDRE \No_ECC.Sl_Rdy_reg 

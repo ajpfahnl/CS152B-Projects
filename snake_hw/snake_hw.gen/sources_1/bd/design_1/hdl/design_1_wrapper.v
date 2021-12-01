@@ -1,7 +1,7 @@
 //Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
-//Date        : Wed Nov 24 21:49:18 2021
+//Date        : Wed Dec  1 11:22:24 2021
 //Host        : DESKTOP-S00MR69 running 64-bit major release  (build 9200)
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -26,6 +26,7 @@ module design_1_wrapper
     jb_pin7_io,
     jb_pin8_io,
     jb_pin9_io,
+    push_buttons_4bits_tri_i,
     reset,
     seven_seg_led_an_tri_o,
     seven_seg_led_disp_tri_o,
@@ -48,6 +49,7 @@ module design_1_wrapper
   inout jb_pin7_io;
   inout jb_pin8_io;
   inout jb_pin9_io;
+  input [3:0]push_buttons_4bits_tri_i;
   input reset;
   output [3:0]seven_seg_led_an_tri_o;
   output [7:0]seven_seg_led_disp_tri_o;
@@ -119,6 +121,7 @@ module design_1_wrapper
   wire jb_pin9_io;
   wire jb_pin9_o;
   wire jb_pin9_t;
+  wire [3:0]push_buttons_4bits_tri_i;
   wire reset;
   wire [3:0]seven_seg_led_an_tri_o;
   wire [7:0]seven_seg_led_disp_tri_o;
@@ -175,6 +178,7 @@ module design_1_wrapper
         .jb_pin9_i(jb_pin9_i),
         .jb_pin9_o(jb_pin9_o),
         .jb_pin9_t(jb_pin9_t),
+        .push_buttons_4bits_tri_i(push_buttons_4bits_tri_i),
         .reset(reset),
         .seven_seg_led_an_tri_o(seven_seg_led_an_tri_o),
         .seven_seg_led_disp_tri_o(seven_seg_led_disp_tri_o),

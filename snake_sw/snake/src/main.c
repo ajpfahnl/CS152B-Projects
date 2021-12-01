@@ -5,6 +5,7 @@
 #include "PmodBT2.h"
 #include "PmodJSTK.h"
 #include "sleep.h"
+#include "xgpio.h"
 
 #include "xuartlite.h"
 typedef XUartLite SysUart;
@@ -21,6 +22,7 @@ typedef XUartLite SysUart;
 PmodBT2 myDevice;
 SysUart myUart;
 PmodJSTK joystick;
+XGpio ssd;
 
 void Initialize();
 void Run();
@@ -51,6 +53,8 @@ void Initialize() {
 	  XPAR_PMODJSTK_0_AXI_LITE_SPI_BASEADDR,
       XPAR_PMODJSTK_0_AXI_LITE_GPIO_BASEADDR
    );
+
+   XGpio_Initialize(&ssd, XPAR_AXI_GPIO_SSD_DEVICE_ID);
 }
 
 void Run() {
@@ -60,7 +64,7 @@ void Run() {
 	u8 buf[1];
 	int n;
 
-	print("Initialized PmodBT2 Demo\n\r");
+	print("Initialized PmodBT2\n\r");
 	print("Received data will be echoed here, type to send data\r\n");
 
 	char * directions_debug[] = {"left", "right", "down", "up", "C", "Q"};
@@ -68,18 +72,32 @@ void Run() {
 	int directions_i = 4;
 	int directions_i_prev = 4;
 
+	XGpio_SetDataDirection(&ssd, 1, 0x00000000);
+	XGpio_SetDataDirection(&ssd, 2, 0x00000000);
+
+	u32 anodm;
+	u32 cathm;
+
+
+	u32 cathms[] = {0b11000000, 0b11111001, 0b10100100, 0b10110000, 0b10011001, 0b10010010, 0b10000010, 0b11111000, 0b10000000, 0b10010000};
+	u32 anodms[] = {0b0111, 0b1011, 0b1101, 0b1110};
+
+	int score = 0;
+
 	while (1) {
 		/* JOYSTICK */
 		// Capture button states and positional data
 		rawdata = JSTK_getDataPacket(&joystick);
 
-		if (rawdata.YData < 200) {
+		// resting x: 495, y: 528
+
+		if (rawdata.YData < 428) {
 			directions_i = 0;
-		} else if (rawdata.YData > 850) {
+		} else if (rawdata.YData > 628) { // 850
 			directions_i = 1;
-		} else if (rawdata.XData > 750) {
+		} else if (rawdata.XData > 595) {
 			directions_i = 2;
-		} else if (rawdata.XData < 250) {
+		} else if (rawdata.XData < 395) {
 			directions_i = 3;
 		}
 
@@ -95,19 +113,30 @@ void Run() {
 			);
 		}
 
-		// Wait for 50ms
-		usleep(50000);
-		// usleep(500000);
+		int score_tmp = score;
+		for (int i=3; i>=0; --i) {
+			int digit = score_tmp%10;
+			score_tmp /= 10;
 
-		// Map LEDs to adjacent buttons
+			anodm = anodms[i];
+			cathm = cathms[digit];
+
+			XGpio_DiscreteWrite(&ssd, 1, anodm);
+			XGpio_DiscreteWrite(&ssd, 2, cathm);
+			usleep(6000);
+		}
+
+		// buttons
 		led = 0x0;
 		if (rawdata.Button1 != 0) {
 			led |= 0x1;
 			directions_i = 4;
+			score = 0;
 		}
 		if (rawdata.Button2 != 0) {
 			led |= 0x2;
 			directions_i = 5;
+			score = 0;
 		}
 		JSTK_setLeds(&joystick, led);
 
@@ -128,6 +157,9 @@ void Run() {
 		n = BT2_RecvData(&myDevice, buf, 1);
 		if (n != 0) {
 			SysUart_Send(&myUart, buf, 1);
+			if (buf[0] == 'u') {
+				score +=1 ;
+			}
 		}
 
 		directions_i_prev = directions_i;

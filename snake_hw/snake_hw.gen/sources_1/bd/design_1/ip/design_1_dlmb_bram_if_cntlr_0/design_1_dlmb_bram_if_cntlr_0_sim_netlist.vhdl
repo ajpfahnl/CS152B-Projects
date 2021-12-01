@@ -1,7 +1,7 @@
 -- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
--- Date        : Sun Nov 21 19:02:28 2021
+-- Date        : Wed Nov 24 17:34:44 2021
 -- Host        : DESKTOP-S00MR69 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim -rename_top design_1_dlmb_bram_if_cntlr_0 -prefix
 --               design_1_dlmb_bram_if_cntlr_0_ design_1_dlmb_bram_if_cntlr_0_sim_netlist.vhdl
@@ -123,7 +123,7 @@ entity design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr is
   attribute C_LMB_PROTOCOL : integer;
   attribute C_LMB_PROTOCOL of design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr : entity is 0;
   attribute C_MASK : string;
-  attribute C_MASK of design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr : entity is "64'b0000000000000000000000000000000000000000001000011000000000000000";
+  attribute C_MASK of design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr : entity is "64'b0000000000000000000000000000000001000000000000011000000000000000";
   attribute C_MASK1 : string;
   attribute C_MASK1 of design_1_dlmb_bram_if_cntlr_0_lmb_bram_if_cntlr : entity is "64'b0000000000000000000000000000000000000000100000000000000000000000";
   attribute C_MASK2 : string;
@@ -333,7 +333,7 @@ begin
     )
         port map (
       I0 => LMB_WriteStrobe,
-      I1 => \^lmb_abus\(10),
+      I1 => \^lmb_abus\(1),
       I2 => \^lmb_abus\(15),
       I3 => \^lmb_abus\(16),
       I4 => LMB_BE(0),
@@ -345,7 +345,7 @@ begin
     )
         port map (
       I0 => LMB_WriteStrobe,
-      I1 => \^lmb_abus\(10),
+      I1 => \^lmb_abus\(1),
       I2 => \^lmb_abus\(15),
       I3 => \^lmb_abus\(16),
       I4 => LMB_BE(1),
@@ -357,7 +357,7 @@ begin
     )
         port map (
       I0 => LMB_WriteStrobe,
-      I1 => \^lmb_abus\(10),
+      I1 => \^lmb_abus\(1),
       I2 => \^lmb_abus\(15),
       I3 => \^lmb_abus\(16),
       I4 => LMB_BE(2),
@@ -369,7 +369,7 @@ begin
     )
         port map (
       I0 => LMB_WriteStrobe,
-      I1 => \^lmb_abus\(10),
+      I1 => \^lmb_abus\(1),
       I2 => \^lmb_abus\(15),
       I3 => \^lmb_abus\(16),
       I4 => LMB_BE(3),
@@ -386,7 +386,7 @@ GND: unisim.vcomponents.GND
         port map (
       I0 => \^lmb_abus\(16),
       I1 => \^lmb_abus\(15),
-      I2 => \^lmb_abus\(10),
+      I2 => \^lmb_abus\(1),
       I3 => LMB_Rst,
       O => \No_ECC.Sl_Rdy_i_1_n_0\
     );
@@ -525,7 +525,7 @@ architecture STRUCTURE of design_1_dlmb_bram_if_cntlr_0 is
   attribute C_LMB_PROTOCOL : integer;
   attribute C_LMB_PROTOCOL of U0 : label is 0;
   attribute C_MASK : string;
-  attribute C_MASK of U0 : label is "64'b0000000000000000000000000000000000000000001000011000000000000000";
+  attribute C_MASK of U0 : label is "64'b0000000000000000000000000000000001000000000000011000000000000000";
   attribute C_MASK1 : string;
   attribute C_MASK1 of U0 : label is "64'b0000000000000000000000000000000000000000100000000000000000000000";
   attribute C_MASK2 : string;
