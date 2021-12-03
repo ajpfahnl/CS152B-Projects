@@ -85,7 +85,7 @@ def gameLoop():
     snake_speed = 5
  
     foodx = round(random.randrange(0, dis_width - snake_block) / 15.0) * 15.0
-    foody = round(random.randrange(40, total_height - snake_block) / 15.0) * 15.0
+    foody = round(random.randrange(40, total_height - 10 - snake_block) / 15.0) * 15.0
  
     while not game_over:
         
@@ -180,7 +180,7 @@ def gameLoop():
                     y1_change = snake_block
                     x1_change = 0
  
-        if x1 >= dis_width or x1 < 0 or y1 >= total_height or y1 < 40:
+        if x1 >= dis_width or x1 < 0 or y1 >= (total_height - 10) or y1 < 40:
             game_close = True
             mixer.Sound.play(lose_sound)
         x1 += x1_change
@@ -214,7 +214,7 @@ def gameLoop():
  
         if x1 == foodx and y1 == foody:
             foodx = round(random.randrange(0, dis_width - snake_block) / 15.0) * 15.0
-            foody = round(random.randrange(40, total_height - snake_block) / 15.0) * 15.0
+            foody = round(random.randrange(40, total_height - 10 - snake_block) / 15.0) * 15.0
             Length_of_snake += 1
             mixer.Sound.play(bite_sound)
             s.write('u'.encode());
